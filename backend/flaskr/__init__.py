@@ -40,6 +40,10 @@ def create_app(test_config=None):
   @app.route('/categories')
   def get_all_categories():
     categories = Category.query.all()
+   
+    if categories is None:
+      abort(404)
+
     all_cat={}
     for cat in categories:
       all_cat[cat.id]=cat.type
@@ -230,7 +234,6 @@ def create_app(test_config=None):
           all_questions = Question.query.all()
       else:
           all_questions = Question.query.filter_by(category=quiz_cat['id']).all()
-          print(2)
     
       ran_index = random.randint(0, len(all_questions)-1)
       next_ques = all_questions[ran_index]

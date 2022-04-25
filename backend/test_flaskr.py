@@ -55,7 +55,12 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(output["success"], True)
         self.assertTrue(output["categories"])
 
-#changes
+    def test_get_all_categories(self):
+        response = self.client().get('/categories')
+        output = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(output["success"], True)
+        self.assertTrue(output["categories"])
 
     def test_question_deletion(self):
         response = self.client().delete('/questions/4')
